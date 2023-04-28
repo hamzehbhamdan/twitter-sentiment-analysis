@@ -1,13 +1,10 @@
-# GitHub Codespaces ♥️ Flask
+Welcome to my twitter sentiment analysis application.
 
-Welcome to your shiny new Codespace running Flask! We've got everything fired up and running for you to explore Flask.
+I use four datasets for this project: company.csv, companyvalues.csv, tweet.csv, and company_tweet.csv. 
 
-You've got a blank canvas to work on from a git perspective as well. There's a single initial commit with the what you're seeing right now - where you go from here is up to you!
+I got these from Kaggle: https://www.kaggle.com/datasets/omermetinn/tweets-about-the-top-companies-from-2015-to-2020?resource=download&select=Tweet.csv and https://www.kaggle.com/datasets/omermetinn/values-of-top-nasdaq-copanies-from-2010-to-2020?select=CompanyValues.csv
 
-Everything you do here is contained within this one codespace. There is no repository on GitHub yet. If and when you’re ready you can click "Publish Branch" and we’ll create your repository and push up your project. If you were just exploring then and have no further need for this code then you can simply delete your codespace and it's gone forever.
+Two of my files, tweet.csv and company_tweet.csv cannot be put onto the repository as they are much larger than the 25mb limit.
 
-To run this application:
 
-```
-flask --debug run
-```
+This is a flask application. Simply run "flask run" in the terminal to run it.
