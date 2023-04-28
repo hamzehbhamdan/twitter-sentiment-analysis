@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stock Prediction Results</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <h1>Stock Prediction Results</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Company</th>
+        <th>Model</th>
+        <th>Mean Squared Error</th>
+        <th>Mean Accuracy Error</th>
+        <th>Mean Accuracy Percent Error</th>
+        <th>Direction Accuracy</th>
+        <th>R2</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for result in results %}
+      <tr>
+        <td>{{ result["company"] }}</td>
+        <td>{{ result["model"] }}</td>
+        <td>{{ result["rmse"] }}</td>
+        <td>{{ result["mae"] }}</td>
+        <td>{{ result["mape"] }}</td>
+        <td>{{ result["da"] }}</td>
+        <td>{{ result["r2"] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a href="/">Back to form</a>
+</body>
+</html>

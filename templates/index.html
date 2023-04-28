@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stock Prediction App</title>
+</head>
+<body>
+  <h1>Stock Prediction App</h1>
+  <p>Welcome to my app!</p>
+  <p>A few things to keep in mind:</p>
+    <ul><li>please enter a start and end dates between Jan 1, 2015 and Dec 31, 2019.</li>
+      <li>you can select as many companies as you want.</li>
+      <li>you can either select a single analysis method or all methods (to compare their accuracy)</li></ul>
+    <br>
+  <form action="/analyze" method="POST">
+    <label for="companies">Select the companies:</label>
+    <select name="companies" id="companies" multiple>
+        <option value="Amazon">Amazon</option>
+        <option value="Apple">Apple</option>
+        <option value="Microsoft">Microsoft</option>
+        <option value="Tesla">Tesla</option>
+    </select>
+    <br>
+    <label for="start_date">Enter the start date (YYYY-MM-DD):</label>
+    <input type="date" name="start_date" id="start_date" required>
+    <br>
+    <label for="end_date">Enter the end date (YYYY-MM-DD):</label>
+    <input type="date" name="end_date" id="end_date" required>
+    <br>
+    <label for="model">Choose a model:</label>
+    <select name="model" id="model">
+      <option value="all">All</option>
+      <option value="linear_regression">Linear Regression</option>
+      <option value="elastic_net">Elastic Net Regression</option>
+      <option value="svr">Support Vector Regression</option>
+      <option value="random_forest">Random Forest Regressor</option>
+    </select>
+    <br>
+    <input type="submit" value="Analyze">
+  </form>
+</body>
+</html>
