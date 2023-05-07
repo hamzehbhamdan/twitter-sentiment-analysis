@@ -16,6 +16,8 @@ import re
 from sklearn.metrics import mean_absolute_error
 import numpy as np
 import nltk
+from file import split_csv, join_csv
+
 nltk.download('punkt')
 nltk.download('stopwords')
 nltk.download('wordnet')
@@ -23,6 +25,7 @@ nltk.download('wordnet')
 def get_tweets(ticker, start_date, end_date):
     if ticker == "AAPL":
         name = "Apple"
+        join_csv("Apple_Tweets_1.csv", "Apple_Tweets_2.csv", "Apple_Tweets.csv")
     if ticker == "MSFT":
         name = "Microsoft"
     if ticker == "TSLA":
