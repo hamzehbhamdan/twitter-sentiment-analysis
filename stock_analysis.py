@@ -21,27 +21,27 @@ nltk.download('stopwords')
 nltk.download('wordnet')
 
 def get_tweets(ticker, start_date, end_date):
-    print("Starting get_tweets")
-    print("get_tweets: reading company_tweet.csv")
-    company_tweet_df = pd.read_csv("company_tweet.csv")
-    print("get_tweets: reading tweet.csv")
-    tweet_df = pd.read_csv("tweet.csv")
-
-    print("get_tweets: interpreting start date")
-    start_date_dt = datetime.datetime.strptime(start_date, '%Y-%m-%d')
-    print(f"start date is {start_date_dt}")
-    print("get_tweets: interpreting end date")
-    end_date_dt = datetime.datetime.strptime(end_date, '%Y-%m-%d')
-    print(f"end date is {end_date_dt}")
-    print("get_tweets: finding tweet_ids for tickers in our list")
-    tweet_ids = company_tweet_df[company_tweet_df["ticker_symbol"] == ticker]["tweet_id"].tolist()
-    print("get_tweets: finding the tweets by tweet_id from tweet.csv")
-    tweets = tweet_df[tweet_df["tweet_id"].isin(tweet_ids)]
-    print("get_tweets: creating tweets_data")
-    tweets_data = [{'date': tweet["post_date"], 'text': tweet["body"]} for _, tweet in tweets.iterrows()
-                if start_date_dt <= datetime.datetime.fromtimestamp(tweet["post_date"]) <= end_date_dt]
-
-    print("get_tweets completed")
+    if ticker == "AAPL":
+        name = "Apple"
+    if ticker == "MSFT":
+        name = "Microsoft"
+    if ticker == "TSLA":
+        name = "Tesla"
+    if ticker == "AMZN":
+        name = "Amazon"
+    if start_date != "2015-01-01 00:00:00" or end_date != "2019-12-31 00:00:00":
+        tweets = pd.read_csv(f"{name}_Tweets.csv")
+        if isinstance(start_date, datetime.datetime):
+            start_date = start_date.strftime('%Y-%m-%d')
+        start_date_dt = datetime.datetime.strptime(start_date, '%Y-%m-%d')
+        if isinstance(end_date, datetime.datetime):
+            end_date = end_date.strftime('%Y-%m-%d')
+        end_date_dt = datetime.datetime.strptime(end_date, '%Y-%m-%d')
+        tweets_data = [{'date': tweet["date"], 'text': tweet["text"]} for _, tweet in tweets.iterrows()
+                    if start_date_dt <= datetime.datetime.fromtimestamp(tweet["date"]) <= end_date_dt]
+    else:
+        tweets = tweets = pd.read_csv(f"{name}_Tweets.csv")
+        tweets_data = [{'date': tweet["date"], 'text': tweet["text"]} for _, tweet in tweets.iterrows()]
     return tweets_data
 
 def preprocess_tweet(tweet):
@@ -71,9 +71,13 @@ def analyze_tweets(tweets):
 def collect_stock_data(ticker, start, end):
     print("starting collect_stock_data")
     print("opening csv")
+    
     company_values_df = pd.read_csv("companyvalues.csv")
     
     company_values_df.dropna(subset=['change_in_close'], inplace=True)
+
+    # Convert the 'day_date' column to datetime objects
+    company_values_df['day_date'] = pd.to_datetime(company_values_df['day_date'])
 
     print("finding close values for tickers inputted in the date range")
     stock_prices = company_values_df[(company_values_df["ticker_symbol"] == ticker) &
@@ -102,7 +106,7 @@ def analyze_stocks(companies, start_date, end_date, model_type):
         print("finding tweets")
         ## tweets is a list of dictionaries with 'date' and 'text'
         tweets = get_tweets(ticker, start_date, end_date)
-            
+        
         print(f"found tweets")
         print("finding sentiment scores")
             
